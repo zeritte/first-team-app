@@ -1,21 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import LoginScreen from './src/screens/LoginScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
+import { setNavigator } from './src/navigationRef';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// switchnavigator'a gerek yok
+const switchNavigator = createSwitchNavigator({
+    loginFlow: createStackNavigator({
+      Register: RegisterScreen,
+      Login: LoginScreen,
+    }),
+  });
+
+  const App = createAppContainer(switchNavigator);
+  
+  export default () => {
+    return (
+        <App 
+          ref={(navigator) => { // @??
+            setNavigator(navigator);
+          }}
+        />
+    );
+  }
