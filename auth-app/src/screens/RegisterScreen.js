@@ -1,17 +1,12 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { NavigationActions, NavigationEvents } from 'react-navigation';
 import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
 
 const RegisterScreen = ({ navigation }) => {
-
-  // onWillFocus : clearErrorMessage olacak
   return (
     <View style={styles.container}>
-      <NavigationEvents onWillFocus="" />
       <AuthForm
-        //errorMessage="" // state.errorMessage olacak
         headerText="Create New Account"
         isRegister={true}
         submitButtonText="REGISTER"

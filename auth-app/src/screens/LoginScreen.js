@@ -6,13 +6,9 @@ import NavLink from '../components/NavLink';
 
 
 const LoginScreen = () => {
-
-  // onWillFocus : clearErrorMessage olacak
   return (
     <View style={styles.container}>
-      <NavigationEvents onWillFocus="" /> 
       <AuthForm
-        // errorMessage="" // state.errorMessage olacak
         headerText="Login to Account"
         isRegister={false}
         submitButtonText="LOGIN"
