@@ -1,50 +1,48 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import { emailValidate, nameValidate, passwordValidate } from '../textValidator';
 import Spacer from './Spacer';
 
-const AuthForm = ({ errorMessage, headerText, isRegister, submitButtonText }) => {
+const AuthForm = ({ headerText, isRegister, submitButtonText }) => {
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [emailError, setEmailError] = useState(null); // @?? useState('') olabilir miydi, bos string false yerine gecmeyebilir
   const [name, setName] = useState('');
-  const [nameError, setNameError] = useState('');
+  const [nameError, setNameError] = useState(null);
   const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [passwordError, setPasswordError] = useState(null);
 
   /* @?? -> !! hataları validator'de döndürmek daha iyi olur */
   useEffect(() => {
-    if (!nameValidate(name)) {
-        setNameError("Your name should be 5 or more characters and doesn't include space(' ')")
-    }
-  }, [name])
+    if (isRegister)
+      setNameError(nameValidate(name))
+  }, [isRegister, name])
 
   useEffect(() => {
-    if (!emailValidate(email)) {
-        setEmailError("Your email should include one '@' sign and two dots('.')!")
-    }
+    setEmailError(emailValidate(email))
   }, [email])
 
   useEffect(() => {
-    if (!passwordValidate(password)) {
-        setPasswordError("Your password should be at least 6 characters!")
-    }
+    setPasswordError(passwordValidate(password))
   }, [password])
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 4}}>
       <ScrollView>
       <Text style={styles.header}>{headerText}</Text>
-      {isRegister ? (
-        <Input
-          label="Name"
-          value={name}
-          onChangeText={setName}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-      ) : null}
-      {isRegister && !nameValidate(name) ? <Text style={styles.errorMessage}>{nameError}</Text> : null}
+      {isRegister && (
+        //fragment --> <></> @?? tam olarak neydi
+        <View>
+          <Input
+            label="Name"
+            value={name}
+            onChangeText={setName}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+         {nameError && <Text style={styles.errorMessage}>{nameError}</Text>}
+        </View>
+      )}
       <Spacer/>
       <Input
         label="Email"
@@ -53,7 +51,7 @@ const AuthForm = ({ errorMessage, headerText, isRegister, submitButtonText }) =>
         autoCapitalize="none"
         autoCorrect={false}
       />
-      {emailValidate(email) ? null : <Text style={styles.errorMessage}>{emailError}</Text>}
+      {emailError && <Text style={styles.errorMessage}>{emailError}</Text>}
       <Spacer/>
       <Input
         secureTextEntry // bu sifrenin gozukmemesini sagliyor
@@ -63,15 +61,11 @@ const AuthForm = ({ errorMessage, headerText, isRegister, submitButtonText }) =>
         autoCapitalize="none"
         autoCorrect={false}
       />
-      {passwordValidate(password) ? null : <Text style={styles.errorMessage}>{passwordError}</Text>}{errorMessage ? (
-        <Text style={styles.errorMessage}>{errorMessage}</Text>
-      ) : null}
-        {isRegister && emailValidate(email) && nameValidate(name) && passwordValidate(password) ? <Button
-          title={submitButtonText}/> : null
-        }
-        {!isRegister && emailValidate(email) && passwordValidate(password) ? <Button
-          title={submitButtonText}/> : null
-        }
+      {passwordError && <Text style={styles.errorMessage}>{passwordError}</Text>}
+      {/* kisaltma */}
+      {/* isRegister kontrolune ihtiyac kalmadi çünkü zaten loginscreen için nameError default null olacak @?? "(isRegister && !(nameError || emailError || passwordError)) yerine asagidaki satır"*/}
+      {!(nameError || emailError || passwordError) && <Button
+        title={submitButtonText}/>}
       </ScrollView>
     </SafeAreaView>
   );

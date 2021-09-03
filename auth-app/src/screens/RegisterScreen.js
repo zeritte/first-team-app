@@ -20,6 +20,7 @@ const RegisterScreen = ({ navigation }) => {
 };
 
 // sayfanin en ust kisminda yukaridaki "headerText" ksiminin gorunmesini engelliyor
+// @?? burasi muhtemelen RN6'da yok - duzeltilmeli
 RegisterScreen.navigationOptions = () => {
   return {
     header: () => false,
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginBottom: 250,
   },
 });
 
