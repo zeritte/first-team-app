@@ -1,29 +1,34 @@
-import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import * as React from 'react'; // bu * ne demek
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginScreen from './src/screens/LoginScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import { setNavigator } from './src/navigationRef';
 
-// @?? sayfalar arasu gecis navigasyon ayari react 5-6 olmali
-// bu kisim duzektilecek rn6 navigation ayarina gore
-// switchnavigator'a gerek yok
-const switchNavigator = createSwitchNavigator({
-    loginFlow: createStackNavigator({
-      Register: RegisterScreen,
-      Login: LoginScreen,
-    }),
-  });
+const Stack = createNativeStackNavigator();
 
-  const App = createAppContainer(switchNavigator);
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Register" component={RegisterScreen} options={{ title: '' }}/>
+        <Stack.Screen name="Login" component={LoginScreen} options={{ title: '' }}/>
+        <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: '' }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
   
-  export default () => {
-    return (
-        <App 
-          ref={(navigator) => { // @??
-            setNavigator(navigator);
-          }}
-        />
-    );
-  }
+export default App;
+
+
+// () => {
+//   return (
+//     <App 
+//       ref={(navigator) => { // @??
+//       setNavigator(navigator);}}
+//     />
+//   );
+// }

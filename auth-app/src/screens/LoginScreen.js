@@ -1,8 +1,7 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import AuthForm from '../components/AuthForm';
-import NavLink from '../components/NavLink';
-
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import AuthForm from "../components/AuthForm";
+import NavLink from "../components/NavLink";
 
 const LoginScreen = () => {
   return (
@@ -19,19 +18,20 @@ const LoginScreen = () => {
     </View>
   );
 };
-
+/*
 // @?? burasi muhtemelen RN6'da yok - duzeltilmeli
 LoginScreen.navigationOptions = () => {
   return {
     header: () => false,
   }  
 };
+*/
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-  },
+    justifyContent: "center",
+  }
 });
 
 export default LoginScreen;

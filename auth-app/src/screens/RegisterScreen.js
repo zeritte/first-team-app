@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
 
-const RegisterScreen = ({ navigation }) => {
+const RegisterScreen = () => {
   return (
     <View style={styles.container}>
       <AuthForm
@@ -18,7 +18,7 @@ const RegisterScreen = ({ navigation }) => {
     </View>
   );
 };
-
+/*
 // sayfanin en ust kisminda yukaridaki "headerText" ksiminin gorunmesini engelliyor
 // @?? burasi muhtemelen RN6'da yok - duzeltilmeli
 RegisterScreen.navigationOptions = () => {
@@ -26,6 +26,7 @@ RegisterScreen.navigationOptions = () => {
     header: () => false,
   };
 };
+*/
 
 const styles = StyleSheet.create({
   container: {
