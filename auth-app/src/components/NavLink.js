@@ -23,4 +23,3 @@ const styles = StyleSheet.create({
 
 export default NavLink;
 
-// @?? salihe sor navlink'teki touchableopacity undefined error'u
