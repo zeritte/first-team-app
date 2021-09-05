@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import {
-  emailValidate,
-  nameValidate,
-  passwordValidate,
-} from "../textValidator";
+import { emailValidate, nameValidate, passwordValidate } from "../textValidator";
 import Spacer from "./Spacer";
 
 const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
@@ -36,7 +32,6 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
       <ScrollView>
         <Text style={styles.header}>{headerText}</Text>
         {isRegister && (
-          //fragment --> <></> @?? tam olarak neydi
           <View>
             <Input
               label="Name"
@@ -79,7 +74,7 @@ const styles = StyleSheet.create({
   errorMessage: {
     color: "red",
     fontSize: 12,
-    marginLeft: 5,
+    marginLeft: 5
   },
   header: {
     color: "lightslategrey",
@@ -87,8 +82,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     marginTop: 20,
-    textAlign: "center",
-  },
+    textAlign: "center"
+  }
 });
 
 export default AuthForm;
