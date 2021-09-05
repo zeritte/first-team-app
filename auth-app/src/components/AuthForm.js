@@ -15,7 +15,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState(null);
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState(null);
+  const [buttonRouteName] = useState(isRegister ? "Login" : "Profile"); // using useState for variables is important because its the way react understands what to update or not
 
   useEffect(() => {
     if (isRegister) setNameError(nameValidate(name));
@@ -28,12 +28,6 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   useEffect(() => {
     setPasswordError(passwordValidate(password));
   }, [password]);
-
-  const navigation = useNavigation();
-
-  // To determine the route of a screen to go when correctly formatted inputs are given and the button appears.
-  let buttonRouteName = "Profile";
-  if (isRegister) buttonRouteName = "Login";
 
   return (
     <SafeAreaView style={{ flex: 4 }}>
