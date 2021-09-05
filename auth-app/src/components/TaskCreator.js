@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "orange",
     borderRadius: 25,
+    flexDirection: "row",
     height: 40,
     justifyContent: "space-between",
     marginHorizontal: 20,
