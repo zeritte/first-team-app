@@ -9,7 +9,7 @@ import {
 } from "../textValidator";
 import Spacer from "./Spacer";
 
-const AuthForm = ({ headerText, isRegister, submitButtonText }) => {
+const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(null); // @?? useState('') olabilir miydi, bos string false yerine gecmeyebilir
   const [name, setName] = useState("");

@@ -8,7 +8,7 @@ const RegisterScreen = () => {
     <View style={styles.container}>
       <AuthForm
         headerText="Create New Account"
-        isRegister={true}
+        isRegister
         submitButtonText="REGISTER"
       />
       <NavLink
@@ -18,15 +18,7 @@ const RegisterScreen = () => {
     </View>
   );
 };
-/*
-// sayfanin en ust kisminda yukaridaki "headerText" ksiminin gorunmesini engelliyor
-// @?? burasi muhtemelen RN6'da yok - duzeltilmeli
-RegisterScreen.navigationOptions = () => {
-  return {
-    header: () => false,
-  };
-};
-*/
+
 
 const styles = StyleSheet.create({
   container: {
