@@ -1,32 +1,30 @@
-import * as React from 'react'; // bu * ne demek
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import LoginScreen from './src/screens/LoginScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
-import RegisterScreen from './src/screens/RegisterScreen';
-import { setNavigator } from './src/navigationRef';
+import LoginScreen from "./src/screens/LoginScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
+import RegisterScreen from "./src/screens/RegisterScreen";
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Register" component={RegisterScreen} options={{ title: '' }}/>
-        <Stack.Screen name="Login" component={LoginScreen} options={{ title: '' }}/>
-        <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: '' }}/>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-  
-export default App;
 
+export default App;
 
 // () => {
 //   return (
-//     <App 
+//     <App
 //       ref={(navigator) => { // @??
 //       setNavigator(navigator);}}
 //     />
