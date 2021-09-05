@@ -6,7 +6,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -72,32 +72,32 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: "center",
     marginHorizontal: 20,
-    width: 40,
+    width: 40
   },
   buttonText: {
-    fontSize: 25,
+    fontSize: 25
   },
   container: {
-    flex: 1,
+    flex: 1
   },
   header: {
     textAlign: "center",
     fontSize: 35,
-    margin: 10,
+    margin: 10
   },
   deleteIcon: {
-    marginRight: 10,
+    marginRight: 10
   },
   keyboardArea: {
     alignItems: "center",
     flexDirection: "row",
-    marginHorizontal: 5,
+    marginHorizontal: 5
   },
   keyboardInput: {
     marginLeft: -15,
     padding: 5,
     // textAlign: "center",
-    width: 460,
+    width: 460
   },
   task: {
     alignItems: "center",
@@ -109,13 +109,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingVertical: 5,
     textAlign: "center",
-    width: 385,
+    width: 385
   },
   taskText: {
     fontSize: 20,
     justifyContent: "flex-start",
     margin: 30,
-    textAlign: "center",
+    textAlign: "center"
   },
   textInput: {
     backgroundColor: "turquoise",
@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
     marginRight: -15,
     paddingVertical: 5,
-    textAlign: "center",
-  },
+    textAlign: "center"
+  }
 });
 
 export default TaskCreator; // bunu bu şekilde yazmak ne işe yarıyor @??
