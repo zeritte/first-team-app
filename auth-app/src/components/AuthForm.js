@@ -2,20 +2,18 @@ import React, { useEffect, useState } from "react";
 import { View, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import {
-  emailValidate,
-  nameValidate,
-  passwordValidate,
-} from "../textValidator";
+import { emailValidate, nameValidate, passwordValidate } from "../textValidator";
 import Spacer from "./Spacer";
 
-const AuthForm = ({ headerText, isRegister, submitButtonText }) => {
+const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(null); // @?? useState('') olabilir miydi, bos string false yerine gecmeyebilir
+  const [emailError, setEmailError] = useState("");
   const [name, setName] = useState("");
-  const [nameError, setNameError] = useState(null);
+  const [nameError, setNameError] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState(null);
+  const [passwordError, setPasswordError] = useState("");
+  const [buttonRouteName] = useState(isRegister ? "Login" : "Profile"); // using useState for variables is important because its the way react understands what to update or not
 
   useEffect(() => {
     if (isRegister) setNameError(nameValidate(name));
@@ -29,18 +27,11 @@ const AuthForm = ({ headerText, isRegister, submitButtonText }) => {
     setPasswordError(passwordValidate(password));
   }, [password]);
 
-  const navigation = useNavigation();
-
-  // To determine the route of a screen to go when correctly formatted inputs are given and the button appears.
-  let buttonRouteName = "Profile";
-  if (isRegister) buttonRouteName = "Login";
-
   return (
     <SafeAreaView style={{ flex: 4 }}>
       <ScrollView>
         <Text style={styles.header}>{headerText}</Text>
         {isRegister && (
-          //fragment --> <></> @?? tam olarak neydi
           <View>
             <Input
               label="Name"
@@ -49,7 +40,7 @@ const AuthForm = ({ headerText, isRegister, submitButtonText }) => {
               autoCapitalize="none"
               autoCorrect={false}
             />
-            {nameError && <Text style={styles.errorMessage}>{nameError}</Text>}
+            {!!nameError && <Text style={styles.errorMessage}>{nameError}</Text>}
           </View>
         )}
         <Spacer />
@@ -60,7 +51,7 @@ const AuthForm = ({ headerText, isRegister, submitButtonText }) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        {emailError && <Text style={styles.errorMessage}>{emailError}</Text>}
+        {!!emailError && <Text style={styles.errorMessage}>{emailError}</Text>}
         <Spacer />
         <Input
           secureTextEntry // bu sifrenin gozukmemesini sagliyor
@@ -70,16 +61,9 @@ const AuthForm = ({ headerText, isRegister, submitButtonText }) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        {passwordError && (
-          <Text style={styles.errorMessage}>{passwordError}</Text>
-        )}
-        {/* kisaltma */}
-        {/* isRegister kontrolune ihtiyac kalmadi çünkü zaten loginscreen için nameError default null olacak @?? "(isRegister && !(nameError || emailError || passwordError)) yerine asagidaki satır"*/}
+        {!!passwordError && <Text style={styles.errorMessage}>{passwordError}</Text>}
         {!(nameError || emailError || passwordError) && (
-          <Button
-            title={submitButtonText}
-            onPress={() => navigation.navigate(buttonRouteName)}
-          />
+          <Button title={submitButtonText} onPress={() => navigation.navigate(buttonRouteName)} />
         )}
       </ScrollView>
     </SafeAreaView>
@@ -90,7 +74,7 @@ const styles = StyleSheet.create({
   errorMessage: {
     color: "red",
     fontSize: 12,
-    marginLeft: 5,
+    marginLeft: 5
   },
   header: {
     color: "lightslategrey",
@@ -98,8 +82,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     marginTop: 20,
-    textAlign: "center",
-  },
+    textAlign: "center"
+  }
 });
 
 export default AuthForm;

@@ -1,13 +1,13 @@
-import React from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
-import Spacer from './Spacer';
+import React from "react";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import Spacer from "./Spacer";
 import { useNavigation } from "@react-navigation/native";
 
 const NavLink = ({ routeName, text }) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(routeName)} style={{flex: 1}}>
+    <TouchableOpacity onPress={() => navigation.navigate(routeName)} style={{ flex: 1 }}>
       <Spacer>
         <Text style={styles.link}>{text}</Text>
       </Spacer>
@@ -17,10 +17,8 @@ const NavLink = ({ routeName, text }) => {
 
 const styles = StyleSheet.create({
   link: {
-    color: 'blue'
+    color: "blue"
   }
 });
 
 export default NavLink;
-
-// @?? salihe sor navlink'teki touchableopacity undefined error'u
