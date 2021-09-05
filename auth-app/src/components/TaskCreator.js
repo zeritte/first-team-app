@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,22 +11,22 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const TaskCreator = () => {
+export default () => {
   const [task, setTask] = useState("");
   const [taskItems, setTaskItems] = useState([]);
 
   const addTask = () => {
     if (!task) return;
-    setTaskItems([...taskItems, { id: Date.now(), text: task }]);
+    setTaskItems([...taskItems, { id: Date.now().toString(), text: task }]);
     setTask("");
   };
 
   const deleteTask = (id) => {
-    setTaskItems(taskItems.filter((t) => t.id !== id)); // tasklerin içinde dolanarak mı arıyor @??
+    setTaskItems(taskItems.filter((t) => t.id !== id));
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Todo List</Text>
       <KeyboardAvoidingView style={styles.keyboardInput}>
         <View style={styles.keyboardArea}>
@@ -37,16 +38,15 @@ const TaskCreator = () => {
             style={styles.textInput}
             value={task}
           />
-          <TouchableOpacity onPress={() => addTask()}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>+</Text>
-            </View>
+          <TouchableOpacity onPress={() => addTask()} style={styles.button}>
+            <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
       <ScrollView style={{ width: "100%", marginTop: 10 }}>
         {taskItems?.map((task) => (
           // @??  Each child in a list should have a unique "key" prop hatası
+          // map ile alakalı
           <View key={task.id} style={styles.task}>
             <Text style={styles.taskText}>{task.text}</Text>
             <TouchableOpacity style={styles.deleteIcon}>
@@ -60,19 +60,24 @@ const TaskCreator = () => {
           </View>
         ))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  textInput: {
+    backgroundColor: "turquoise",
+    borderRadius: 25,
+    flex: 0.8,
+    paddingVertical: 5,
+    textAlign: "center"
+  },
   button: {
     alignItems: "center",
     backgroundColor: "turquoise",
     borderRadius: 25,
-    height: 40,
-    justifyContent: "center",
-    marginHorizontal: 20,
-    width: 40
+    flex: 0.2,
+    justifyContent: "center"
   },
   buttonText: {
     fontSize: 25
@@ -89,43 +94,26 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   keyboardArea: {
-    alignItems: "center",
     flexDirection: "row",
-    marginHorizontal: 5
+    paddingHorizontal: 10
   },
   keyboardInput: {
-    marginLeft: -15,
-    padding: 5,
-    // textAlign: "center",
-    width: 460
+    padding: 5
   },
   task: {
     alignItems: "center",
     backgroundColor: "orange",
     borderRadius: 25,
-    height: 40,
     justifyContent: "space-between",
     marginHorizontal: 20,
     marginTop: 15,
-    paddingVertical: 5,
+    padding: 10,
     textAlign: "center",
-    width: 385
+    flexDirection: "row"
   },
   taskText: {
     fontSize: 20,
     justifyContent: "flex-start",
-    margin: 30,
-    textAlign: "center"
-  },
-  textInput: {
-    backgroundColor: "turquoise",
-    borderRadius: 25,
-    flex: 1,
-    marginHorizontal: 25,
-    marginRight: -15,
-    paddingVertical: 5,
     textAlign: "center"
   }
 });
-
-export default TaskCreator; // bunu bu şekilde yazmak ne işe yarıyor @??
