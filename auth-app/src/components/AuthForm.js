@@ -10,11 +10,13 @@ import {
 import Spacer from "./Spacer";
 
 const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(null); // @?? useState('') olabilir miydi, bos string false yerine gecmeyebilir
+  const [emailError, setEmailError] = useState("");
   const [name, setName] = useState("");
-  const [nameError, setNameError] = useState(null);
+  const [nameError, setNameError] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [buttonRouteName] = useState(isRegister ? "Login" : "Profile"); // using useState for variables is important because its the way react understands what to update or not
 
   useEffect(() => {
