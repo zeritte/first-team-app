@@ -45,7 +45,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
               autoCapitalize="none"
               autoCorrect={false}
             />
-            {nameError && <Text style={styles.errorMessage}>{nameError}</Text>}
+            {!!nameError && <Text style={styles.errorMessage}>{nameError}</Text>}
           </View>
         )}
         <Spacer />
@@ -56,7 +56,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        {emailError && <Text style={styles.errorMessage}>{emailError}</Text>}
+        {!!emailError && <Text style={styles.errorMessage}>{emailError}</Text>}
         <Spacer />
         <Input
           secureTextEntry // bu sifrenin gozukmemesini sagliyor
@@ -66,16 +66,9 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        {passwordError && (
-          <Text style={styles.errorMessage}>{passwordError}</Text>
-        )}
-        {/* kisaltma */}
-        {/* isRegister kontrolune ihtiyac kalmadi çünkü zaten loginscreen için nameError default null olacak @?? "(isRegister && !(nameError || emailError || passwordError)) yerine asagidaki satır"*/}
+        {!!passwordError && <Text style={styles.errorMessage}>{passwordError}</Text>}
         {!(nameError || emailError || passwordError) && (
-          <Button
-            title={submitButtonText}
-            onPress={() => navigation.navigate(buttonRouteName)}
-          />
+          <Button title={submitButtonText} onPress={() => navigation.navigate(buttonRouteName)} />
         )}
       </ScrollView>
     </SafeAreaView>
