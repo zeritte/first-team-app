@@ -7,13 +7,16 @@ import Spacer from "./Spacer";
 
 const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const navigation = useNavigation();
+  // useState'leri en küçük objede/component'te oluşturmak lazım yoksa o componenti ilgilendirmeyen useState'lerden dolayı sayfa yeniden çalıştırıldığında gereksiz yere büütün useState'ler çalışır.
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [buttonRouteName] = useState(isRegister ? "Login" : "Profile"); // using useState for variables is important because its the way react understands what to update or not
+  const [buttonRouteName] = useState(isRegister ? "Login" : "Profile"); // using useState for variables is important because it is the way react understands what to update or not
+  // yukarıdaki gibi useState kullanımı bunu bir fonksiyon şeklinde yazmaya göre şu şekilde fayda sağlar: o alanda değişiklik olmadığı sürece tekrar bu fonksiyonu çalıştırmamış oluruz, bir kez hesaplanır ve herhangi bir değişiklik olması beklenir
+  // complexity olarak cheap(ucuz) fonksiyonlar için pek bir fark oluşturmaz ama expensive olanlar(maliyetli) için uygulamayı yavaşlatır ve hafıza kullanımını etkiler
 
   useEffect(() => {
     if (isRegister) setNameError(nameValidate(name));
