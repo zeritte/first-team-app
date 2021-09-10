@@ -34,6 +34,7 @@ export default () => {
             autoCapitalize="none"
             autoCorrect={false}
             onChangeText={setTask}
+            onSubmitEditing={() => addTask()} // @?? onSubmitEditing={addTask()} yapınca her ne yazsam ve submit butonuna basmasam dahi alta ekliyordu
             placeholder="Add Task"
             style={styles.textInput}
             value={task}
