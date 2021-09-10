@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import { Text, Button, Input } from "react-native-elements";
+import { Text, Button, Icon, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
+
 import { emailValidate, nameValidate, passwordValidate } from "../textValidator";
 import Spacer from "./Spacer";
 
@@ -37,9 +38,18 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
         {isRegister && (
           <View>
             <Input
-              label="Name"
+              label="Your Name"
               value={name}
               onChangeText={setName}
+              placeholder="Name"
+              leftIcon={
+                <Icon
+                  name="account-circle"
+                  type="materialicon"
+                  size={24}
+                  color="gray"
+                />
+              }
               autoCapitalize="none"
               autoCorrect={false}
             />
@@ -48,9 +58,18 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
         )}
         <Spacer />
         <Input
-          label="Email"
+          label="Your Email Address"
           value={email}
           onChangeText={setEmail}
+          placeholder="@.."
+          leftIcon={
+            <Icon
+              name="email"
+              type="zocial"
+              size={24}
+              color="gray"
+            />
+          }
           autoCapitalize="none"
           autoCorrect={false}
         />
@@ -61,9 +80,19 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           label="Password"
           value={password}
           onChangeText={setPassword}
+          placeholder="Password"
+          leftIcon={
+            <Icon
+              name="lock"
+              type="materialicon"
+              size={24}
+              color="gray"
+            />
+          }
           autoCapitalize="none"
           autoCorrect={false}
         />
+        {/* onSubmitEditing={() => navigation.navigate(buttonRouteName)} @?? bunu burada yapabilir miyiz? */}
         {!!passwordError && <Text style={styles.errorMessage}>{passwordError}</Text>}
         {!(nameError || emailError || passwordError) && (
           <Button title={submitButtonText} onPress={() => navigation.navigate(buttonRouteName)} />
