@@ -4,6 +4,7 @@ import { Text, Button, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { emailValidate, nameValidate, passwordValidate } from "../textValidator";
 import Spacer from "./Spacer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const navigation = useNavigation();
@@ -14,6 +15,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [buttonRouteName] = useState(isRegister ? "Login" : "Profile"); // using useState for variables is important because its the way react understands what to update or not
+
 
   useEffect(() => {
     if (isRegister) setNameError(nameValidate(name));
@@ -26,6 +28,19 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   useEffect(() => {
     setPasswordError(passwordValidate(password));
   }, [password]);
+
+  //AsyncStorage
+
+  const onSubmit = async() => {
+    if (navigation.navigate(buttonRouteName)=='Login') {
+      await AsyncStorage.setItem('key_mail',email)
+      setEmail('');
+    }
+
+    // if login
+    // save email to localstorage
+    // navigation.navigate(buttonRouteName)
+  }
 
   return (
     <SafeAreaView style={{ flex: 4 }}>
@@ -63,7 +78,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
         />
         {!!passwordError && <Text style={styles.errorMessage}>{passwordError}</Text>}
         {!(nameError || emailError || passwordError) && (
-          <Button title={submitButtonText} onPress={() => navigation.navigate(buttonRouteName)} />
+          <Button title={submitButtonText} onPress={onSubmit} />
         )}
       </ScrollView>
     </SafeAreaView>
