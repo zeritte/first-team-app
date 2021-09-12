@@ -9,12 +9,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator();
 
+function sleep(s) {
+  return new Promise((resolve) => setTimeout(resolve, s * 1000));
+}
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const checkIsLoggedIn = async () => {
-    const keys = await AsyncStorage.getAllKeys();
-    const value = await AsyncStorage.getItem('key_mail')
+    await sleep(5);
 
     if (keys.includes(value)) {
       setIsLoggedIn(true)
