@@ -6,10 +6,10 @@ import TaskCreator from "../components/TaskCreator";
 
 const ProfileScreen = () => {
 
-  onSubmit = async () => {
+  onSubmit = async () => { // daha guzel bi isim bul fonksiyona
     try {
       await AsyncStorage.removeItem("key_mail")
-      navigate('Register')
+
     }
     catch (e){
       console.log(e)
