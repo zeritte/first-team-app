@@ -37,8 +37,8 @@ function App() {
 
   return (
     <NavigationContainer>
-      {!isLoggedIn ? (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
+        <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
         </Stack.Navigator>
@@ -51,6 +51,7 @@ function App() {
   );
 }
 
+//this.props.navigation.navigate("Root", {screen: "Profile" }})
 export default App;
 
 // () => {
