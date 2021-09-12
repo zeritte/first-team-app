@@ -82,6 +82,10 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 25
   },
+  checkBox: {
+    flexDirection: "row",
+    flex: 1
+  },
   container: {
     flex: 1
   },
@@ -91,6 +95,8 @@ const styles = StyleSheet.create({
     margin: 10
   },
   deleteIcon: {
+    flexDirection: "row",
+    flex: 1,
     marginRight: 10
   },
   keyboardArea: {
@@ -100,11 +106,20 @@ const styles = StyleSheet.create({
   keyboardInput: {
     padding: 5
   },
+  strikeThroughText: {
+    // @?? flexDirection değerini row veya column yapmam bir şeyi değiştirmedi
+    flexDirection: "row",
+    flex: 8,
+    fontSize: 16,
+    justifyContent: "space-around",
+    textAlign: "left",
+    textDecorationLine: "line-through"
+    //line-through is the trick
+  },
   task: {
     alignItems: "center",
     backgroundColor: "orange",
     borderRadius: 25,
-    justifyContent: "space-between",
     marginHorizontal: 20,
     marginTop: 15,
     padding: 10,
@@ -112,8 +127,11 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   taskText: {
-    fontSize: 20,
-    justifyContent: "flex-start",
-    textAlign: "center"
+    flexDirection: "row",
+    flex: 8,
+    // @?? bu değer 120 iken checkboc işaretlenmiyordu neden?
+    fontSize: 16,
+    justifyContent: "space-around",
+    textAlign: "left"
   }
 });
