@@ -12,12 +12,12 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default () => {
-  const [task, setTask] = useState("");
-  const [taskItems, setTaskItems] = useState([]);
+  const [task, setTask] = useState(""); // @?? içerikle alakalı
+  const [taskItems, setTaskItems] = useState([]); // @?? arrayin boyutu ile alakalı bir şey, içerisindeki elemanla ilgili değil
 
   const addTask = () => {
     if (!task) return;
-    setTaskItems([...taskItems, { id: Date.now().toString(), text: task }]);
+    setTaskItems([...taskItems, { id: Date.now().toString(), isSelected: false, text: task }]);
     setTask("");
   };
 
