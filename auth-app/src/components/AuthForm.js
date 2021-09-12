@@ -4,7 +4,7 @@ import { Text, Button, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { emailValidate, nameValidate, passwordValidate } from "../textValidator";
 import Spacer from "./Spacer";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
 const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const navigation = useNavigation();
@@ -15,7 +15,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [buttonRouteName] = useState(isRegister ? "Login" : "Profile"); // using useState for variables is important because its the way react understands what to update or not
-
+  const { setItem } = useAsyncStorage("@email_key");
 
   useEffect(() => {
     if (isRegister) setNameError(nameValidate(name));
