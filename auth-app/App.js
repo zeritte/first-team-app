@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Text, View } from "react-native";
 
 import LoginScreen from "./src/screens/LoginScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
@@ -14,7 +15,7 @@ function sleep(s) {
 }
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [initialRouteName, setInitialRouteName] = useState(null);
 
   const checkIsLoggedIn = async () => {
     await sleep(5);
@@ -35,6 +36,13 @@ function App() {
     checkIsLoggedIn();
   }, []);
 
+  if (initialRouteName === null) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center",  }}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
