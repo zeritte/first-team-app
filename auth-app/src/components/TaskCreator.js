@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  CheckBox,
   KeyboardAvoidingView,
   SafeAreaView,
   ScrollView,
@@ -25,6 +26,15 @@ export default () => {
     setTaskItems(taskItems.filter((t) => t.id !== id));
   };
 
+  const taskCompletion = (id) => {
+    const theItem = taskItems.filter((t) => t.id === id)[0];
+    // @?? checkbox işaretlenince aşağı iniyor veya geri tik kaldırılınca yine aşağı iniyor,
+    // aslında taskleri swipe fonksiyonu gibi elle sıralama değiştirilebilir olsa
+    if (theItem.isSelected) theItem.isSelected = false;
+    else theItem.isSelected = true;
+    setTaskItems([...taskItems.filter((t) => t.id !== id), theItem]);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Todo List</Text>
@@ -34,6 +44,7 @@ export default () => {
             autoCapitalize="none"
             autoCorrect={false}
             onChangeText={setTask}
+            onSubmitEditing={() => addTask()} // @?? onSubmitEditing={addTask()} yapınca her ne yazsam ve submit butonuna basmasam dahi alta ekliyordu
             placeholder="Add Task"
             style={styles.textInput}
             value={task}
@@ -45,10 +56,21 @@ export default () => {
       </KeyboardAvoidingView>
       <ScrollView style={{ width: "100%", marginTop: 10 }}>
         {taskItems?.map((task) => (
-          // @??  Each child in a list should have a unique "key" prop hatası
-          // map ile alakalı
+          // Each child in a list should have a unique "key" prop hatası(View elemanına key prop'u ekleyerek çözdük) map ile alakalı, çünkü map içindeki her elemanın özel bir key'i olması lazım.
+          // Aynı keyli elemanları tutmadığı için key değeri olmayan elemanlar da benzer kabul edilip içerisinde tutulmuyor.
           <View key={task.id} style={styles.task}>
-            <Text style={styles.taskText}>{task.text}</Text>
+            {/* @?? View'e style eklemeyince aşağıdaki checkbox, text ve deleteicon flex özelliği atamama rağmen alt alta sıralandı */}
+            {/* <Text style={styles.taskText}>{task.text}</Text> */}
+            <CheckBox
+              value={task.isSelected}
+              style={styles.checkBox}
+              onValueChange={() => taskCompletion(task.id)}
+            />
+            {task.isSelected ? (
+              <Text style={styles.strikeThroughText}>{task.text}</Text>
+            ) : (
+              <Text style={styles.taskText}>{task.text}</Text>
+            )}
             <TouchableOpacity style={styles.deleteIcon}>
               <MaterialIcons
                 color="black"
