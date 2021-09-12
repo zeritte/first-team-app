@@ -31,16 +31,14 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
 
   //AsyncStorage
 
-  const onSubmit = async() => {
-    if (navigation.navigate(buttonRouteName)=='Login') {
-      await AsyncStorage.setItem('key_mail',email)
-      setEmail('');
-    }
+  // register ---> login ----> profile
 
-    // if login
-    // save email to localstorage
-    // navigation.navigate(buttonRouteName)
-  }
+  const onSubmit = async () => {
+    if (buttonRouteName === "Profile") {
+      await setItem(email);
+    }
+    navigation.navigate(buttonRouteName);
+  };
 
   return (
     <SafeAreaView style={{ flex: 4 }}>
