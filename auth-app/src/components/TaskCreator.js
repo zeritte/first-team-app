@@ -42,8 +42,9 @@ export default () => {
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
-            onChangeText={setText}
-            onSubmitEditing={() => addTask()}
+            onChangeText={setTask}
+            // () => addTask() ile addTask aynı, fonksiyonun çalıştırılabilir halini(addTask()) çağırınca sayfa her render edildiğinde  kod o satıra gelmese de o fonksiyon çağrılır
+            onSubmitEditing={addTask}
             placeholder="Add Task"
             style={styles.textInput}
             value={text}
