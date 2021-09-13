@@ -19,7 +19,7 @@ function App() {
   const { getItem } = useAsyncStorage("@email_key");
 
   const checkIsLoggedIn = async () => {
-    await sleep(5);
+    await sleep(3);
     const email = await getItem();
 
     if (email !== null) {
