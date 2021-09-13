@@ -26,7 +26,9 @@ export default () => {
 
 const styles = StyleSheet.create({
     textEmail: {
-
+      fontSize: 30,
+      marginTop: 20,
+      textAlign: 'center'
     } 
 });
   
