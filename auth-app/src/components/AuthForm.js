@@ -29,10 +29,6 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
     setPasswordError(passwordValidate(password));
   }, [password]);
 
-  //AsyncStorage
-
-  // register ---> login ----> profile
-
   const onSubmit = async () => {
     if (buttonRouteName === "Profile") {
       await setItem(email);

@@ -15,20 +15,27 @@ export default () => {
     setValue(item);
   };
 
-    return (
+  return (
     <View >
-            <Text style={styles.textEmail}>
+      <Text style={styles.textEmail}>
           {value}
-            </Text>
-        </View>
-    );
+        </Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    textEmail: {
+  textEmail: {
       fontSize: 30,
       marginTop: 20,
       textAlign: 'center'
-    } 
+  }
 });
-  
+
+
+{/* <TouchableOpacity onPress={() => writeItemToStorage(Math.random().toString(36).substr(2, 5))}>
+</TouchableOpacity> */}
+//   const writeItemToStorage = async (newValue) => {
+//     await setItem(newValue);
+//     setValue(newValue);
+//   };
