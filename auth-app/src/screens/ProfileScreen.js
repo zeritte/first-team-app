@@ -1,26 +1,26 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import ShowEmail from "../components/ShowEmail";
 import TaskCreator from "../components/TaskCreator";
 
 const ProfileScreen = () => {
+  const navigation = useNavigation();
+  const [setValue] = useState("");
+  const { removeItem } = useAsyncStorage("@email_key");
 
-  onSubmit = async () => { // daha guzel bi isim bul fonksiyona
-    try {
-      await AsyncStorage.removeItem("key_mail")
-
-    }
-    catch (e){
-      console.log(e)
-    }
-  }
+  const removeEmail = async () => {
+    const email = await removeItem();
+    setValue(email);
+    navigation.navigate("Login");
+  };
 
   return (
     <View style={styles.container}>
-      <TaskCreator />
       <ShowEmail />
-      <Button title='LOG OUT' onPress={onSubmit} />
+      <TaskCreator />
+      <Button title="LOG OUT" onPress={removeEmail} />
     </View>
   );
 };
