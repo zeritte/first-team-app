@@ -28,8 +28,7 @@ export default () => {
 
   const taskCompletion = (id) => {
     const theItem = taskItems.filter((t) => t.id === id)[0];
-    // @?? checkbox işaretlenince aşağı iniyor veya geri tik kaldırılınca yine aşağı iniyor,
-    // aslında taskleri swipe fonksiyonu gibi elle sıralama değiştirilebilir olsa
+    // SORU: checkbox işaretlenince aşağı iniyor veya geri tik kaldırılınca yine aşağı iniyor. - ÇÖZÜM: "javascript change object in array"
     if (theItem.isSelected) theItem.isSelected = false;
     else theItem.isSelected = true;
     setTaskItems([...taskItems.filter((t) => t.id !== id), theItem]);
@@ -44,7 +43,7 @@ export default () => {
             autoCapitalize="none"
             autoCorrect={false}
             onChangeText={setText}
-            onSubmitEditing={() => addTask()} // @?? onSubmitEditing={addTask()} yapınca her ne yazsam ve submit butonuna basmasam dahi alta ekliyordu
+            onSubmitEditing={() => addTask()}
             placeholder="Add Task"
             style={styles.textInput}
             value={text}
@@ -59,7 +58,8 @@ export default () => {
           // Each child in a list should have a unique "key" prop hatası(View elemanına key prop'u ekleyerek çözdük) map ile alakalı, çünkü map içindeki her elemanın özel bir key'i olması lazım.
           // Aynı keyli elemanları tutmadığı için key değeri olmayan elemanlar da benzer kabul edilip içerisinde tutulmuyor.
           <View key={task.id} style={styles.task}>
-            {/* @?? View'e style eklemeyince aşağıdaki checkbox, text ve deleteicon flex özelliği atamama rağmen alt alta sıralandı */}
+            {/* SORU: View'e style eklemeyince aşağıdaki checkbox, text ve deleteicon flex özelliği atamama rağmen alt alta sıralandı. 
+            ELCEVAP: Çünkü flexDirection parent(wrapper) elemanın alacağı ve ve altındaki elemanlarına uygulayacağı bir styling */}
             {/* <Text style={styles.taskText}>{task.text}</Text> */}
             <CheckBox
               value={task.isSelected}
@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   checkBox: {
-    flexDirection: "row",
     flex: 1
   },
   container: {
@@ -117,7 +116,6 @@ const styles = StyleSheet.create({
     margin: 10
   },
   deleteIcon: {
-    flexDirection: "row",
     flex: 1,
     marginRight: 10
   },
@@ -129,14 +127,13 @@ const styles = StyleSheet.create({
     padding: 5
   },
   strikeThroughText: {
-    // @?? flexDirection değerini row veya column yapmam bir şeyi değiştirmedi
-    flexDirection: "row",
+    // SORU: flexDirection değerini row veya column yapmam bir şeyi değiştirmedi - ELCEVAP: Baba çocuğuna hükmeder.
     flex: 8,
     fontSize: 16,
     justifyContent: "space-around",
     textAlign: "left",
     textDecorationLine: "line-through"
-    //line-through is the trick
+    //line-through is the trick(püf noktası) 
   },
   task: {
     alignItems: "center",
@@ -149,9 +146,11 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   taskText: {
-    flexDirection: "row",
     flex: 8,
-    // @?? bu değer 120 iken checkboc işaretlenmiyordu neden?
+    /*
+    SORU: bu değer 120 iken checkbox işaretlenmiyordu neden? - ELCEVAP: Çünkü o elemanın minwidth değeri ile alakalı, definition dosyasına bakabilirsin minwidth için, 
+    flexin etkili olup olmadığını anlamak için border verip kontrol edebilirsin
+    */
     fontSize: 16,
     justifyContent: "space-around",
     textAlign: "left"
