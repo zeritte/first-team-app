@@ -13,13 +13,13 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default () => {
-  const [task, setTask] = useState(""); // @?? içerikle alakalı
-  const [taskItems, setTaskItems] = useState([]); // @?? arrayin boyutu ile alakalı bir şey, içerisindeki elemanla ilgili değil
+  const [text, setText] = useState(""); // buradaki useState kullanıcın metin girdiği alanla alakalı, yani kaydedilmeyen alan
+  const [taskItems, setTaskItems] = useState([]); // buradaki useState ise kullanıcın kaydettiği task'lerin bulunduğu kısım, yani kayıtlı tasklerin görünümüyle alakalı yapacağımız değişiklikte burayı referans almalıyız 
 
   const addTask = () => {
     if (!task) return;
     setTaskItems([...taskItems, { id: Date.now().toString(), isSelected: false, text: task }]);
-    setTask("");
+    setText("");
   };
 
   const deleteTask = (id) => {
@@ -43,11 +43,11 @@ export default () => {
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
-            onChangeText={setTask}
+            onChangeText={setText}
             onSubmitEditing={() => addTask()} // @?? onSubmitEditing={addTask()} yapınca her ne yazsam ve submit butonuna basmasam dahi alta ekliyordu
             placeholder="Add Task"
             style={styles.textInput}
-            value={task}
+            value={text}
           />
           <TouchableOpacity onPress={() => addTask()} style={styles.button}>
             <Text style={styles.buttonText}>+</Text>
