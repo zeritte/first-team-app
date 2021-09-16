@@ -10,15 +10,32 @@ import {
   View
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+
+// useEffect(() => {
+//   writeEmail();
+// }, []);
 
 export default () => {
-  const [task, setTask] = useState("");
+  const [text, setText] = useState("");
   const [taskItems, setTaskItems] = useState([]);
+  const { getItem } = useAsyncStorage("@unsaved_text");
+  const { setItem } = useAsyncStorage("@unsaved_text");
 
   const addTask = () => {
     if (!task) return;
     setTaskItems([...taskItems, { id: Date.now().toString(), text: task }]);
-    setTask("");
+    setText("");
+  };
+  
+  const retrieveText = async () => {
+    text = await getItem();
+    setText(text);
+  };
+
+  const saveText = async () => {
+    setItem(text);
+    setText(text);
   };
 
   const deleteTask = (id) => {
@@ -33,10 +50,10 @@ export default () => {
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
-            onChangeText={setTask}
+            onChangeText={saveText}
             placeholder="Add Task"
             style={styles.textInput}
-            value={task}
+            value={retrieveText}
           />
           <TouchableOpacity onPress={() => addTask()} style={styles.button}>
             <Text style={styles.buttonText}>+</Text>
