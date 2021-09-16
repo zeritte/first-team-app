@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   SafeAreaView,
@@ -12,34 +12,34 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
-// useEffect(() => {
-//   writeEmail();
-// }, []);
-
 export default () => {
   const [text, setText] = useState("");
   const [taskItems, setTaskItems] = useState([]);
   const { getItem } = useAsyncStorage("@unsaved_text");
   const { setItem } = useAsyncStorage("@unsaved_text");
 
-  const addTask = () => {
-    if (!task) return;
-    setTaskItems([...taskItems, { id: Date.now().toString(), text: task }]);
-    setText("");
-  };
-  
-  const retrieveText = async () => {
-    text = await getItem();
-    setText(text);
-  };
+  useEffect(() => {
+    retrieveText();
+  }, []);
 
-  const saveText = async () => {
-    setItem(text);
-    setText(text);
+  const addTask = () => {
+    if (!text) return;
+    setTaskItems([...taskItems, { id: Date.now().toString(), text: text }]);
+    setText("");
   };
 
   const deleteTask = (id) => {
     setTaskItems(taskItems.filter((t) => t.id !== id));
+  };
+
+  const retrieveText = async () => {
+    const item = await getItem();
+    setText(item);
+  };
+
+  const saveText = async () => {
+    if (!text) return;
+    await setItem(text);
   };
 
   return (
@@ -50,10 +50,11 @@ export default () => {
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
-            onChangeText={saveText}
+            onChangeText={setText}
+            onKeyPress={saveText}
             placeholder="Add Task"
             style={styles.textInput}
-            value={retrieveText}
+            value={text}
           />
           <TouchableOpacity onPress={() => addTask()} style={styles.button}>
             <Text style={styles.buttonText}>+</Text>
