@@ -7,7 +7,7 @@ import TaskCreator from "../components/TaskCreator";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
-  const [setValue] = useState("");
+  const [value, setValue] = useState("");
   const { removeItem } = useAsyncStorage("@email_key");
 
   const removeEmail = async () => {
