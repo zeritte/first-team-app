@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CheckBox,
   KeyboardAvoidingView,
@@ -11,11 +11,21 @@ import {
   View
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
 export default () => {
   const [text, setText] = useState(""); // buradaki useState kullanıcın metin girdiği alanla alakalı, yani kaydedilmeyen alan
   const [taskItems, setTaskItems] = useState([]); // buradaki useState ise kullanıcın kaydettiği task'lerin bulunduğu kısım, yani kayıtlı tasklerin görünümüyle alakalı yapacağımız değişiklikte burayı referans almalıyız 
+  const { getItem, setItem } = useAsyncStorage("@todo_text");
+  
+  useEffect(() => {
+    saveText();
+  }, [text]);
 
+  useEffect(() => {
+    retrieveText();
+  }, []);
+  
   const addTask = () => {
     if (!task) return;
     setTaskItems([...taskItems, { id: Date.now().toString(), isSelected: false, text: task }]);
@@ -24,6 +34,16 @@ export default () => {
 
   const deleteTask = (id) => {
     setTaskItems(taskItems.filter((t) => t.id !== id));
+  };
+
+  const retrieveText = async () => {
+    const item = await getItem();
+    setText(item);
+  };
+
+  const saveText = async () => {
+    if (!text) return;
+    await setItem(text);
   };
 
   const taskCompletion = (id) => {
@@ -42,9 +62,8 @@ export default () => {
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
-            onChangeText={setTask}
-            // () => addTask() ile addTask aynı, fonksiyonun çalıştırılabilir halini(addTask()) çağırınca sayfa her render edildiğinde  kod o satıra gelmese de o fonksiyon çağrılır
-            onSubmitEditing={addTask}
+            onChangeText={setText}
+            onSubmitEditing={addTask} // () => addTask() ile addTask aynı, fonksiyonun çalıştırılabilir halini(addTask()) çağırınca sayfa her render edildiğinde  kod o satıra gelmese de o fonksiyon çağrılır
             placeholder="Add Task"
             style={styles.textInput}
             value={text}
