@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 export default () => {
-  const [value, setValue] = useState("");
+  const [email, setEmail] = useState("");
   const { getItem } = useAsyncStorage("@email_key");
 
   useEffect(() => {
@@ -12,13 +12,13 @@ export default () => {
 
   const getEmail = async () => {
     const item = await getItem();
-    setValue(item);
+    setEmail(item);
   };
 
   return (
     <View >
       <Text style={styles.textEmail}>
-          {value}
+          {email}
         </Text>
     </View>
   );
