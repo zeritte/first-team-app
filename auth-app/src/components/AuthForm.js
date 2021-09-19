@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { View, SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import { Text, Button, Input } from "react-native-elements";
+import { Text, Button, Icon, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
+
 import { emailValidate, nameValidate, passwordValidate } from "../textValidator";
 import Spacer from "./Spacer";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
 const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const navigation = useNavigation();
+  // useState'leri en küçük objede/component'te oluşturmak lazım yoksa o componenti ilgilendirmeyen useState'lerden dolayı sayfa yeniden çalıştırıldığında gereksiz yere büütün useState'ler çalışır.
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [buttonRouteName] = useState(isRegister ? "Login" : "Profile"); // using useState for variables is important because its the way react understands what to update or not
+  const [buttonRouteName] = useState(isRegister ? "Login" : "Profile"); // using useState for variables is important because it is the way react understands what to update or not
+  // yukarıdaki gibi useState kullanımı bunu bir fonksiyon şeklinde yazmaya göre şu şekilde fayda sağlar: o alanda değişiklik olmadığı sürece tekrar bu fonksiyonu çalıştırmamış oluruz, bir kez hesaplanır ve herhangi bir değişiklik olması beklenir
+  // complexity olarak cheap(ucuz) fonksiyonlar için pek bir fark oluşturmaz ama expensive olanlar(maliyetli) için uygulamayı yavaşlatır ve hafıza kullanımını etkiler
   const { setItem } = useAsyncStorage("@email_key");
 
   useEffect(() => {
@@ -43,9 +47,18 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
         {isRegister && (
           <View>
             <Input
-              label="Name"
+              label="Your Name"
               value={name}
               onChangeText={setName}
+              placeholder="Name"
+              leftIcon={
+                <Icon
+                  name="account-circle"
+                  type="materialicon"
+                  size={24}
+                  color="gray"
+                />
+              }
               autoCapitalize="none"
               autoCorrect={false}
             />
@@ -54,9 +67,18 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
         )}
         <Spacer />
         <Input
-          label="Email"
+          label="Your Email Address"
           value={email}
           onChangeText={setEmail}
+          placeholder="@.."
+          leftIcon={
+            <Icon
+              name="email"
+              type="zocial"
+              size={24}
+              color="gray"
+            />
+          }
           autoCapitalize="none"
           autoCorrect={false}
         />
@@ -67,9 +89,19 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           label="Password"
           value={password}
           onChangeText={setPassword}
+          placeholder="Password"
+          leftIcon={
+            <Icon
+              name="lock"
+              type="materialicon"
+              size={24}
+              color="gray"
+            />
+          }
           autoCapitalize="none"
           autoCorrect={false}
         />
+        {/* onSubmitEditing={() => navigation.navigate(buttonRouteName)} @?? bunu burada yapabilir miyiz? */}
         {!!passwordError && <Text style={styles.errorMessage}>{passwordError}</Text>}
         {!(nameError || emailError || passwordError) && (
           <Button title={submitButtonText} onPress={onSubmit} />
