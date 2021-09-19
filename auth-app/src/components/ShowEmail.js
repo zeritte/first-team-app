@@ -31,11 +31,3 @@ const styles = StyleSheet.create({
       textAlign: 'center'
   }
 });
-
-
-{/* <TouchableOpacity onPress={() => writeItemToStorage(Math.random().toString(36).substr(2, 5))}>
-</TouchableOpacity> */}
-//   const writeItemToStorage = async (newValue) => {
-//     await setItem(newValue);
-//     setValue(newValue);
-//   };

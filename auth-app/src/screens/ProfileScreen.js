@@ -32,23 +32,3 @@ const styles = StyleSheet.create({
 });
 
 export default ProfileScreen;
-
-
- // const removeEmail = async () => {
-  //   try {
-  //     await removeItem(email)
-  //   }
-  //   catch (error) {
-  //     console.log(error)
-  //   };
-  // }
-
-  // onSubmit = async () => { // daha guzel bi isim bul fonksiyona
-  //   try {
-  //     await AsyncStorage.removeItem("key_mail")
-
-  //   }
-  //   catch (e){
-  //
-  //   }
-  // }
