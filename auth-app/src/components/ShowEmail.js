@@ -7,10 +7,10 @@ export default () => {
   const { getItem } = useAsyncStorage("@email_key");
 
   useEffect(() => {
-    writeEmail();
+    getEmail();
   }, []);
 
-  const writeEmail = async () => {
+  const getEmail = async () => {
     const item = await getItem();
     setValue(item);
   };
