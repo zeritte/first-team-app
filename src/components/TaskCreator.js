@@ -20,7 +20,7 @@ export default () => {
   const { getItem, setItem } = useAsyncStorage('@todo_text');
 
   useEffect(() => {
-    saveText();
+    saveText(text);
   }, [text]);
 
   useEffect(() => {
@@ -42,9 +42,9 @@ export default () => {
     setText(item);
   };
 
-  const saveText = async () => {
+  const saveText = async (textToSave) => {
     if (!text) return;
-    await setItem(text);
+    await setItem(textToSave);
   };
 
   const taskCompletion = (id) => {

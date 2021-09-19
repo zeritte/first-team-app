@@ -4,7 +4,13 @@ module.exports = {
     browser: true,
     es2021: true
   },
-  extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
+  extends: [
+    'plugin:react/recommended',
+    'airbnb',
+    'prettier',
+    'plugin:react-hooks/recommended',
+    'plugin:import/recommended'
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true
@@ -19,6 +25,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-use-before-define': 'off',
     'react/jsx-filename-extension': 'off',
-    'react/prop-types': 'off'
+    'react/prop-types': 'off',
+    'react-hooks/exhaustive-deps': 'off'
   }
 };
