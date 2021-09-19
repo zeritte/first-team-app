@@ -3,22 +3,22 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 export default () => {
-  const [value, setValue] = useState("");
+  const [email, setEmail] = useState("");
   const { getItem } = useAsyncStorage("@email_key");
 
   useEffect(() => {
-    writeEmail();
+    getEmail();
   }, []);
 
-  const writeEmail = async () => {
+  const getEmail = async () => {
     const item = await getItem();
-    setValue(item);
+    setEmail(item);
   };
 
   return (
     <View >
       <Text style={styles.textEmail}>
-          {value}
+          {email}
         </Text>
     </View>
   );
@@ -31,11 +31,3 @@ const styles = StyleSheet.create({
       textAlign: 'center'
   }
 });
-
-
-{/* <TouchableOpacity onPress={() => writeItemToStorage(Math.random().toString(36).substr(2, 5))}>
-</TouchableOpacity> */}
-//   const writeItemToStorage = async (newValue) => {
-//     await setItem(newValue);
-//     setValue(newValue);
-//   };
