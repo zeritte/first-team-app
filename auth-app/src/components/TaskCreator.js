@@ -16,9 +16,12 @@ import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 export default () => {
   const [text, setText] = useState(""); // buradaki useState kullanıcın metin girdiği alanla alakalı, yani kaydedilmeyen alan
   const [taskItems, setTaskItems] = useState([]); // buradaki useState ise kullanıcın kaydettiği task'lerin bulunduğu kısım, yani kayıtlı tasklerin görünümüyle alakalı yapacağımız değişiklikte burayı referans almalıyız 
-  const { getItem } = useAsyncStorage("@unsaved_text");
-  const { setItem } = useAsyncStorage("@unsaved_text");
+  const { getItem, setItem } = useAsyncStorage("@todo_text");
   
+  useEffect(() => {
+    saveText();
+  }, [text]);
+
   useEffect(() => {
     retrieveText();
   }, []);
@@ -41,7 +44,8 @@ export default () => {
   const saveText = async () => {
     if (!text) return;
     await setItem(text);
-    
+  };
+
   const taskCompletion = (id) => {
     const theItem = taskItems.filter((t) => t.id === id)[0];
     // SORU: checkbox işaretlenince aşağı iniyor veya geri tik kaldırılınca yine aşağı iniyor. - ÇÖZÜM: "javascript change object in array"
@@ -59,7 +63,6 @@ export default () => {
             autoCapitalize="none"
             autoCorrect={false}
             onChangeText={setText}
-            onKeyPress={saveText}
             onSubmitEditing={addTask} // () => addTask() ile addTask aynı, fonksiyonun çalıştırılabilir halini(addTask()) çağırınca sayfa her render edildiğinde  kod o satıra gelmese de o fonksiyon çağrılır
             placeholder="Add Task"
             style={styles.textInput}
