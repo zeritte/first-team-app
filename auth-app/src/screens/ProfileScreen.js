@@ -1,13 +1,10 @@
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import ShowEmail from "../components/ShowEmail";
 import TaskCreator from "../components/TaskCreator";
 
-const ProfileScreen = () => {
-  const navigation = useNavigation();
-  const [setValue] = useState("");
+const ProfileScreen = ({ navigation }) => {
   const { removeItem } = useAsyncStorage("@email_key");
 
   const removeEmail = async () => {
