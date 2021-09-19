@@ -8,8 +8,7 @@ const ProfileScreen = ({ navigation }) => {
   const { removeItem } = useAsyncStorage("@email_key");
 
   const removeEmail = async () => {
-    const email = await removeItem();
-    setValue(email);
+    await removeItem();
     navigation.navigate("Login");
   };
 
