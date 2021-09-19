@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Text, View } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
-import LoginScreen from "./src/screens/LoginScreen";
-import ProfileScreen from "./src/screens/ProfileScreen";
-import RegisterScreen from "./src/screens/RegisterScreen";
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import LoginScreen from './src/screens/LoginScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,16 +16,16 @@ function sleep(s) {
 
 function App() {
   const [initialRouteName, setInitialRouteName] = useState(null);
-  const { getItem } = useAsyncStorage("@email_key");
+  const { getItem } = useAsyncStorage('@email_key');
 
   const checkIsLoggedIn = async () => {
     await sleep(3);
     const email = await getItem();
 
     if (email !== null) {
-      setInitialRouteName("Profile");
+      setInitialRouteName('Profile');
     } else {
-      setInitialRouteName("Register");
+      setInitialRouteName('Register');
     }
   };
 
@@ -35,7 +35,7 @@ function App() {
 
   if (initialRouteName === null) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Loading...</Text>
       </View>
     );
@@ -51,14 +51,4 @@ function App() {
   );
 }
 
-//this.props.navigation.navigate("Root", {screen: "Profile" }})
 export default App;
-
-// () => {
-//   return (
-//     <App
-//       ref={(navigator) => { // @??
-//       setNavigator(navigator);}}
-//     />
-//   );
-// }

@@ -1,15 +1,15 @@
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import React from "react";
-import { StyleSheet, View, Button } from "react-native";
-import ShowEmail from "../components/ShowEmail";
-import TaskCreator from "../components/TaskCreator";
+import React from 'react';
+import { StyleSheet, View, Button } from 'react-native';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import ShowEmail from '../components/ShowEmail';
+import TaskCreator from '../components/TaskCreator';
 
 const ProfileScreen = ({ navigation }) => {
-  const { removeItem } = useAsyncStorage("@email_key");
+  const { removeItem } = useAsyncStorage('@email_key');
 
   const removeEmail = async () => {
     await removeItem();
-    navigation.navigate("Login"); // navigation özelliğini sayfalarda bu şekilde, componentlerde useNavigation kullanmak daha uygun
+    navigation.navigate('Login'); // navigation özelliğini sayfalarda bu şekilde, componentlerde useNavigation kullanmak daha uygun
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   CheckBox,
   KeyboardAvoidingView,
@@ -9,15 +9,16 @@ import {
   TextInput,
   TouchableOpacity,
   View
-} from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+} from 'react-native';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { MaterialIcons } from '@expo/vector-icons';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 export default () => {
-  const [text, setText] = useState(""); // buradaki useState kullanıcın metin girdiği alanla alakalı, yani kaydedilmeyen alan
-  const [taskItems, setTaskItems] = useState([]); // buradaki useState ise kullanıcın kaydettiği task'lerin bulunduğu kısım, yani kayıtlı tasklerin görünümüyle alakalı yapacağımız değişiklikte burayı referans almalıyız 
-  const { getItem, setItem } = useAsyncStorage("@todo_text");
-  
+  const [text, setText] = useState(''); // buradaki useState kullanıcın metin girdiği alanla alakalı, yani kaydedilmeyen alan
+  const [taskItems, setTaskItems] = useState([]); // buradaki useState ise kullanıcın kaydettiği task'lerin bulunduğu kısım, yani kayıtlı tasklerin görünümüyle alakalı yapacağımız değişiklikte burayı referans almalıyız
+  const { getItem, setItem } = useAsyncStorage('@todo_text');
+
   useEffect(() => {
     saveText();
   }, [text]);
@@ -25,11 +26,11 @@ export default () => {
   useEffect(() => {
     retrieveText();
   }, []);
-  
+
   const addTask = () => {
-    if (!task) return;
-    setTaskItems([...taskItems, { id: Date.now().toString(), isSelected: false, text: task }]);
-    setText("");
+    if (!text) return;
+    setTaskItems([...taskItems, { id: Date.now().toString(), isSelected: false, text }]);
+    setText('');
   };
 
   const deleteTask = (id) => {
@@ -73,7 +74,7 @@ export default () => {
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
-      <ScrollView style={{ width: "100%", marginTop: 10 }}>
+      <ScrollView style={{ width: '100%', marginTop: 10 }}>
         {taskItems?.map((task) => (
           // Each child in a list should have a unique "key" prop hatası(View elemanına key prop'u ekleyerek çözdük) map ile alakalı, çünkü map içindeki her elemanın özel bir key'i olması lazım.
           // Aynı keyli elemanları tutmadığı için key değeri olmayan elemanlar da benzer kabul edilip içerisinde tutulmuyor.
@@ -108,18 +109,18 @@ export default () => {
 
 const styles = StyleSheet.create({
   textInput: {
-    backgroundColor: "turquoise",
+    backgroundColor: 'turquoise',
     borderRadius: 25,
     flex: 0.8,
     paddingVertical: 5,
-    textAlign: "center"
+    textAlign: 'center'
   },
   button: {
-    alignItems: "center",
-    backgroundColor: "turquoise",
+    alignItems: 'center',
+    backgroundColor: 'turquoise',
     borderRadius: 25,
     flex: 0.2,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   buttonText: {
     fontSize: 25
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   header: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 35,
     margin: 10
   },
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   keyboardArea: {
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingHorizontal: 10
   },
   keyboardInput: {
@@ -150,20 +151,20 @@ const styles = StyleSheet.create({
     // SORU: flexDirection değerini row veya column yapmam bir şeyi değiştirmedi - ELCEVAP: Baba çocuğuna hükmeder.
     flex: 8,
     fontSize: 16,
-    justifyContent: "space-around",
-    textAlign: "left",
-    textDecorationLine: "line-through"
-    //line-through is the trick(püf noktası) 
+    justifyContent: 'space-around',
+    textAlign: 'left',
+    textDecorationLine: 'line-through'
+    // line-through is the trick(püf noktası)
   },
   task: {
-    alignItems: "center",
-    backgroundColor: "orange",
+    alignItems: 'center',
+    backgroundColor: 'orange',
     borderRadius: 25,
     marginHorizontal: 20,
     marginTop: 15,
     padding: 10,
-    textAlign: "center",
-    flexDirection: "row"
+    textAlign: 'center',
+    flexDirection: 'row'
   },
   taskText: {
     flex: 8,
@@ -172,7 +173,7 @@ const styles = StyleSheet.create({
     flexin etkili olup olmadığını anlamak için border verip kontrol edebilirsin
     */
     fontSize: 16,
-    justifyContent: "space-around",
-    textAlign: "left"
+    justifyContent: 'space-around',
+    textAlign: 'left'
   }
 });

@@ -1,7 +1,7 @@
-import React from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
-import Spacer from "./Spacer";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import Spacer from './Spacer';
 
 const NavLink = ({ routeName, text }) => {
   const navigation = useNavigation();
@@ -17,9 +17,9 @@ const NavLink = ({ routeName, text }) => {
 
 const styles = StyleSheet.create({
   link: {
-    color: "blue",
+    color: 'blue',
     fontSize: 18,
-    textAlign: "center"
+    textAlign: 'center'
   }
 });
 
