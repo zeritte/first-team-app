@@ -51,6 +51,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
             <Input
               label="Your Name"
               value={name}
+              onSubmitEditing={() => input2.current.focus()}
               onChangeText={setName}
               placeholder="Name"
               leftIcon={<Icon name="account-circle" type="materialicon" size={24} color="gray" />}
@@ -64,6 +65,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
         <Input
           label="Your Email Address"
           value={email}
+          onSubmitEditing={() => input3.current.focus()}
           ref={input2}
           onChangeText={setEmail}
           placeholder="@.."
