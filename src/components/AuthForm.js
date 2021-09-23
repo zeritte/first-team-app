@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Text, Button, Icon, Input } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
@@ -39,6 +39,9 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
     navigation.navigate(buttonRouteName);
   };
 
+  const input2 = useRef();
+  const input3 = useRef();
+
   return (
     <SafeAreaView style={{ flex: 4 }}>
       <ScrollView>
@@ -61,6 +64,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
         <Input
           label="Your Email Address"
           value={email}
+          ref={input2}
           onChangeText={setEmail}
           placeholder="@.."
           leftIcon={<Icon name="email" type="zocial" size={24} color="gray" />}
@@ -73,6 +77,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           secureTextEntry // bu sifrenin gozukmemesini sagliyor
           label="Password"
           value={password}
+          ref={input3}
           onChangeText={setPassword}
           placeholder="Password"
           leftIcon={<Icon name="lock" type="materialicon" size={24} color="gray" />}
