@@ -37,6 +37,13 @@ export default () => {
     setTaskItems(taskItems.filter((t) => t.id !== id));
   };
 
+  const findElement = (id, list) => {
+    for (let i = 0; i < list.length; i += 1) {
+      if (list[i].id === id) return i;
+    }
+    return null;
+  };
+
   const retrieveText = async () => {
     const item = await getItem();
     setText(item);
@@ -48,11 +55,11 @@ export default () => {
   };
 
   const taskCompletion = (id) => {
-    const theItem = taskItems.filter((t) => t.id === id)[0];
+    const index = findElement(id, taskItems);
     // SORU: checkbox işaretlenince aşağı iniyor veya geri tik kaldırılınca yine aşağı iniyor. - ÇÖZÜM: "javascript change object in array"
-    if (theItem.isSelected) theItem.isSelected = false;
-    else theItem.isSelected = true;
-    setTaskItems([...taskItems.filter((t) => t.id !== id), theItem]);
+    if (taskItems[index].isSelected) taskItems[index].isSelected = false;
+    else taskItems[index].isSelected = true;
+    setTaskItems([...taskItems]); // @?? SORU: setTaskItems(taskItems) yazınca tik atılmıyor ve üzerini çizilmiyordu
   };
 
   return (
