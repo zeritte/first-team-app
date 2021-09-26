@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Text, Button, Icon, Input } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
@@ -20,17 +20,17 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   // complexity olarak cheap(ucuz) fonksiyonlar için pek bir fark oluşturmaz ama expensive olanlar(maliyetli) için uygulamayı yavaşlatır ve hafıza kullanımını etkiler
   const { setItem } = useAsyncStorage('@email_key');
 
-  useEffect(() => {
-    if (isRegister) setNameError(nameValidate(name));
-  }, [isRegister, name]);
+  // useEffect(() => {
+  //   if (isRegister) setNameError(nameValidate(name));
+  // }, [isRegister, name]);
 
-  useEffect(() => {
-    setEmailError(emailValidate(email));
-  }, [email]);
+  // useEffect(() => {
+  //   setEmailError(emailValidate(email));
+  // }, [email]);
 
-  useEffect(() => {
-    setPasswordError(passwordValidate(password));
-  }, [password]);
+  // useEffect(() => {
+  //   setPasswordError(passwordValidate(password));
+  // }, [password]);
 
   const onSubmit = async () => {
     if (buttonRouteName === 'Profile') {
