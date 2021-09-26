@@ -6,7 +6,7 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { emailValidate, nameValidate, passwordValidate } from '../textValidator';
 import Spacer from './Spacer';
 
-const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
+const AuthForm = ({ headerText, isRegister = false, submitButtonText, validate }) => {
   const navigation = useNavigation();
   // useState'leri en küçük objede/component'te oluşturmak lazım yoksa o componenti ilgilendirmeyen useState'lerden dolayı sayfa yeniden çalıştırıldığında gereksiz yere büütün useState'ler çalışır.
   const [email, setEmail] = useState('');
@@ -33,10 +33,16 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   // }, [password]);
 
   const onSubmit = async () => {
-    if (buttonRouteName === 'Profile') {
-      await setItem(email);
+    if (validate) {
+      if (buttonRouteName === 'Profile') {
+        await setItem(email);
+      }
+      navigation.navigate(buttonRouteName);
+    } else {
+      if (isRegister) setNameError(nameValidate(name));
+      setEmailError(emailValidate(email));
+      setPasswordError(passwordValidate(password));
     }
-    navigation.navigate(buttonRouteName);
   };
 
   return (
@@ -79,11 +85,12 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        {/* onSubmitEditing={() => navigation.navigate(buttonRouteName)} @?? bunu burada yapabilir miyiz? */}
         {!!passwordError && <Text style={styles.errorMessage}>{passwordError}</Text>}
-        {!(nameError || emailError || passwordError) && (
-          <Button title={submitButtonText} onPress={onSubmit} />
-        )}
+        <Button
+          title={submitButtonText}
+          onPress={onSubmit}
+          validate={passwordValidate(password) && emailValidate(email) && nameValidate(name)}
+        />
       </ScrollView>
     </SafeAreaView>
   );
