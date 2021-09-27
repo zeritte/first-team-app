@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 import LoginScreen from './src/screens/LoginScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
+import ToDoScreen from './src/screens/ToDoScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 
 const Stack = createNativeStackNavigator();
@@ -23,7 +23,7 @@ function App() {
     const email = await getItem();
 
     if (email !== null) {
-      setInitialRouteName('Profile');
+      setInitialRouteName('ToDo');
     } else {
       setInitialRouteName('Register');
     }
@@ -45,7 +45,7 @@ function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="ToDo" component={ToDoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
