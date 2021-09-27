@@ -6,7 +6,7 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { emailValidate, nameValidate, passwordValidate } from '../textValidator';
 import Spacer from './Spacer';
 
-const AuthForm = ({ headerText, isRegister = false, submitButtonText, validate }) => {
+const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const navigation = useNavigation();
   // useState'leri en küçük objede/component'te oluşturmak lazım yoksa o componenti ilgilendirmeyen useState'lerden dolayı sayfa yeniden çalıştırıldığında gereksiz yere büütün useState'ler çalışır.
   const [email, setEmail] = useState('');
@@ -86,11 +86,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText, validate }
           autoCorrect={false}
         />
         {!!passwordError && <Text style={styles.errorMessage}>{passwordError}</Text>}
-        <Button
-          title={submitButtonText}
-          onPress={onSubmit}
-          validate={passwordValidate(password) && emailValidate(email) && nameValidate(name)}
-        />
+        <Button title={submitButtonText} onPress={onSubmit} />
       </ScrollView>
     </SafeAreaView>
   );
