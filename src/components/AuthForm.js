@@ -15,22 +15,10 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const [nameError, setNameError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [buttonRouteName] = useState(isRegister ? 'Login' : 'Profile'); // using useState for variables is important because it is the way react understands what to update or not
+  const [buttonRouteName] = useState(isRegister ? 'Login' : 'ToDo'); // using useState for variables is important because it is the way react understands what to update or not
   // yukarıdaki gibi useState kullanımı bunu bir fonksiyon şeklinde yazmaya göre şu şekilde fayda sağlar: o alanda değişiklik olmadığı sürece tekrar bu fonksiyonu çalıştırmamış oluruz, bir kez hesaplanır ve herhangi bir değişiklik olması beklenir
   // complexity olarak cheap(ucuz) fonksiyonlar için pek bir fark oluşturmaz ama expensive olanlar(maliyetli) için uygulamayı yavaşlatır ve hafıza kullanımını etkiler
   const { setItem } = useAsyncStorage('@email_key');
-
-  // useEffect(() => {
-  //   if (isRegister) setNameError(nameValidate(name));
-  // }, [isRegister, name]);
-
-  // useEffect(() => {
-  //   setEmailError(emailValidate(email));
-  // }, [email]);
-
-  // useEffect(() => {
-  //   setPasswordError(passwordValidate(password));
-  // }, [password]);
 
   const onSubmit = async () => {
     if (isRegister) {
@@ -40,15 +28,15 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
         setPasswordError(passwordValidate(password));
       } else {
         if (buttonRouteName === 'ToDo') {
-        await setItem(email);
-      }
-      navigation.navigate(buttonRouteName);
+          await setItem(email);
+        }
+        navigation.navigate(buttonRouteName);
       }
     } else {
       // eslint-disable-next-line no-lonely-if
       if (passwordValidate(password) || emailValidate(email)) {
-      setEmailError(emailValidate(email));
-      setPasswordError(passwordValidate(password));
+        setEmailError(emailValidate(email));
+        setPasswordError(passwordValidate(password));
       } else {
         if (buttonRouteName === 'ToDo') {
           await setItem(email);
