@@ -39,8 +39,8 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
     navigation.navigate(buttonRouteName);
   };
 
-  const input2 = useRef();
-  const input3 = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   return (
     <SafeAreaView style={{ flex: 4 }}>
@@ -51,7 +51,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
             <Input
               label="Your Name"
               value={name}
-              onSubmitEditing={() => input2.current.focus()}
+              onSubmitEditing={() => emailRef.current.focus()}
               onChangeText={setName}
               placeholder="Name"
               leftIcon={<Icon name="account-circle" type="materialicon" size={24} color="gray" />}
@@ -65,8 +65,8 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
         <Input
           label="Your Email Address"
           value={email}
-          onSubmitEditing={() => input3.current.focus()}
-          ref={input2}
+          onSubmitEditing={() => passwordRef.current.focus()}
+          ref={emailRef}
           onChangeText={setEmail}
           placeholder="@.."
           leftIcon={<Icon name="email" type="zocial" size={24} color="gray" />}
@@ -79,7 +79,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           secureTextEntry // bu sifrenin gozukmemesini sagliyor
           label="Password"
           value={password}
-          ref={input3}
+          ref={passwordRef}
           onChangeText={setPassword}
           placeholder="Password"
           leftIcon={<Icon name="lock" type="materialicon" size={24} color="gray" />}
