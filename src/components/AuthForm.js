@@ -33,15 +33,28 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   // }, [password]);
 
   const onSubmit = async () => {
-    if (validate) {
-      if (buttonRouteName === 'Profile') {
+    if (isRegister) {
+      if (passwordValidate(password) || emailValidate(email) || nameValidate(name)) {
+        if (isRegister) setNameError(nameValidate(name));
+        setEmailError(emailValidate(email));
+        setPasswordError(passwordValidate(password));
+      } else {
+        if (buttonRouteName === 'ToDo') {
         await setItem(email);
       }
       navigation.navigate(buttonRouteName);
+      }
     } else {
-      if (isRegister) setNameError(nameValidate(name));
+      // eslint-disable-next-line no-lonely-if
+      if (passwordValidate(password) || emailValidate(email)) {
       setEmailError(emailValidate(email));
       setPasswordError(passwordValidate(password));
+      } else {
+        if (buttonRouteName === 'ToDo') {
+          await setItem(email);
+        }
+        navigation.navigate(buttonRouteName);
+      }
     }
   };
 
