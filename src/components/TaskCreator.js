@@ -39,14 +39,6 @@ export default () => {
     setTaskItems(taskItems.filter((t) => t.id !== id));
   };
 
-  // finds index of element with given id in a map
-  const findElement = (id, map) => {
-    for (let i = 0; i < map.length; i += 1) {
-      if (map[i].id === id) return i;
-    }
-    return null;
-  };
-
   const retrieveText = async () => {
     const item = await getItem();
     setText(item);
