@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Text, Button, Icon, Input } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
@@ -15,28 +15,35 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const [nameError, setNameError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [buttonRouteName] = useState(isRegister ? 'Login' : 'Profile'); // using useState for variables is important because it is the way react understands what to update or not
+  const [buttonRouteName] = useState(isRegister ? 'Login' : 'ToDo'); // using useState for variables is important because it is the way react understands what to update or not
   // yukarıdaki gibi useState kullanımı bunu bir fonksiyon şeklinde yazmaya göre şu şekilde fayda sağlar: o alanda değişiklik olmadığı sürece tekrar bu fonksiyonu çalıştırmamış oluruz, bir kez hesaplanır ve herhangi bir değişiklik olması beklenir
   // complexity olarak cheap(ucuz) fonksiyonlar için pek bir fark oluşturmaz ama expensive olanlar(maliyetli) için uygulamayı yavaşlatır ve hafıza kullanımını etkiler
   const { setItem } = useAsyncStorage('@email_key');
 
-  useEffect(() => {
-    if (isRegister) setNameError(nameValidate(name));
-  }, [isRegister, name]);
-
-  useEffect(() => {
-    setEmailError(emailValidate(email));
-  }, [email]);
-
-  useEffect(() => {
-    setPasswordError(passwordValidate(password));
-  }, [password]);
-
   const onSubmit = async () => {
-    if (buttonRouteName === 'Profile') {
-      await setItem(email);
+    if (isRegister) {
+      if (passwordValidate(password) || emailValidate(email) || nameValidate(name)) {
+        if (isRegister) setNameError(nameValidate(name));
+        setEmailError(emailValidate(email));
+        setPasswordError(passwordValidate(password));
+      } else {
+        if (buttonRouteName === 'ToDo') {
+          await setItem(email);
+        }
+        navigation.navigate(buttonRouteName);
+      }
+    } else {
+      // eslint-disable-next-line no-lonely-if
+      if (passwordValidate(password) || emailValidate(email)) {
+        setEmailError(emailValidate(email));
+        setPasswordError(passwordValidate(password));
+      } else {
+        if (buttonRouteName === 'ToDo') {
+          await setItem(email);
+        }
+        navigation.navigate(buttonRouteName);
+      }
     }
-    navigation.navigate(buttonRouteName);
   };
 
   return (
@@ -79,11 +86,8 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        {/* onSubmitEditing={() => navigation.navigate(buttonRouteName)} @?? bunu burada yapabilir miyiz? */}
         {!!passwordError && <Text style={styles.errorMessage}>{passwordError}</Text>}
-        {!(nameError || emailError || passwordError) && (
-          <Button title={submitButtonText} onPress={onSubmit} />
-        )}
+        <Button title={submitButtonText} onPress={onSubmit} />
       </ScrollView>
     </SafeAreaView>
   );

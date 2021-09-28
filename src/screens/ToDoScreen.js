@@ -4,7 +4,7 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import ShowEmail from '../components/ShowEmail';
 import TaskCreator from '../components/TaskCreator';
 
-const ProfileScreen = ({ navigation }) => {
+const ToDoScreen = ({ navigation }) => {
   const { removeItem } = useAsyncStorage('@email_key');
 
   const removeEmail = async () => {
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProfileScreen;
+export default ToDoScreen;
