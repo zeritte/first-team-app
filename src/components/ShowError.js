@@ -9,31 +9,31 @@ import { countAt, countDot, nameLength, nameSpace, passwordLength } from '../tex
 const PositiveTick = () => <Icon name="check" type="evilicons" size={24} color="green" />;
 const NegativeCross = () => <Icon name="close-o" type="evilicons" size={24} color="red" />;
 
-const ShowError = ({ type, name, email, password }) => {
+const ShowError = ({ type, value }) => {
   switch (type) {
     case 'name':
       return (
         <View>
           {/* console.log(nameLength(name)); */}
-          {nameLength(name) ? <PositiveTick /> : <NegativeCross />}
+          {nameLength(value) ? <PositiveTick /> : <NegativeCross />}
           <Text>greater than 5</Text>
-          {nameSpace(name) ? <PositiveTick /> : <NegativeCross />}
+          {nameSpace(value) ? <PositiveTick /> : <NegativeCross />}
           <Text>Not include space</Text>
         </View>
       );
     case 'email':
       return (
         <View>
-          {countAt(email) ? <PositiveTick /> : <NegativeCross />}
+          {countAt(value) ? <PositiveTick /> : <NegativeCross />}
           <Text>Includes @</Text>
-          {countDot(email) ? <PositiveTick /> : <NegativeCross />}
+          {countDot(value) ? <PositiveTick /> : <NegativeCross />}
           <Text>Includes 2 .</Text>
         </View>
       );
     case 'password':
       return (
         <View>
-          {passwordLength(password) ? <PositiveTick /> : <NegativeCross />}
+          {passwordLength(value) ? <PositiveTick /> : <NegativeCross />}
           <Text>greater than 6</Text>
         </View>
       );

@@ -56,7 +56,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
               autoCapitalize="none"
               autoCorrect={false}
             />
-            {!!nameError && <ShowError type="name" name={name} />}
+            {!!nameError && <ShowError type="name" value={name} />}
           </View>
         )}
         <Spacer />
@@ -69,7 +69,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        {!!emailError && <ShowError type="email" email={email} />}
+        {!!emailError && <ShowError type="email" value={email} />}
         <Spacer />
         <Input
           secureTextEntry // bu sifrenin gozukmemesini sagliyor
@@ -83,7 +83,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           formType="password"
         />
         {/* onSubmitEditing={() => navigation.navigate(buttonRouteName)} @?? bunu burada yapabilir miyiz? */}
-        {!!passwordError && <ShowError type="password" password={password} />}
+        {!!passwordError && <ShowError type="password" value={password} />}
         {!(nameError || emailError || passwordError) && (
           <Button title={submitButtonText} onPress={onSubmit} />
         )}
