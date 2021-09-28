@@ -3,7 +3,9 @@ import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Text, Button, Icon, Input } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import ShowError, { emailValidate, nameValidate, passwordValidate } from './ShowError';
+
+import { emailValidate, nameValidate, passwordValidate } from '../textValidator';
+import ShowError from './ShowError';
 import Spacer from './Spacer';
 
 const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
