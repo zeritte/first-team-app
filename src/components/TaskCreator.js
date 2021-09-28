@@ -27,6 +27,8 @@ export default () => {
     retrieveText();
   }, []);
 
+  // SORU: Burada birden çok fonksiyon var bunları textValidator gibi ayrı bir fonksiyon kümesi olarak ayrıştırmak gerekir mi?
+  // YANIT: state'lerle alakalı fonksiyonları dışarı çıkarırken düşünmek laızm gerçekten çıkarmamız gerekir mi diye
   const addTask = () => {
     if (!text) return;
     setTaskItems([...taskItems, { id: Date.now().toString(), isSelected: false, text }]);
@@ -48,11 +50,11 @@ export default () => {
   };
 
   const taskCompletion = (id) => {
-    const theItem = taskItems.filter((t) => t.id === id)[0];
-    // SORU: checkbox işaretlenince aşağı iniyor veya geri tik kaldırılınca yine aşağı iniyor. - ÇÖZÜM: "javascript change object in array"
-    if (theItem.isSelected) theItem.isSelected = false;
-    else theItem.isSelected = true;
-    setTaskItems([...taskItems.filter((t) => t.id !== id), theItem]);
+    const index = taskItems.findIndex((task) => task.id === id);
+    if (index === -1) return;
+    if (taskItems[index].isSelected) taskItems[index].isSelected = false;
+    else taskItems[index].isSelected = true;
+    setTaskItems([...taskItems]); // @?? SORU: setTaskItems(taskItems) yazınca tik atılmıyor ve üzerini çizilmiyordu
   };
 
   return (
@@ -80,7 +82,7 @@ export default () => {
           // Aynı keyli elemanları tutmadığı için key değeri olmayan elemanlar da benzer kabul edilip içerisinde tutulmuyor.
           <View key={task.id} style={styles.task}>
             {/* SORU: View'e style eklemeyince aşağıdaki checkbox, text ve deleteicon flex özelliği atamama rağmen alt alta sıralandı. 
-            ELCEVAP: Çünkü flexDirection parent(wrapper) elemanın alacağı ve ve altındaki elemanlarına uygulayacağı bir styling */}
+            YANIT: Çünkü flexDirection parent(wrapper) elemanın alacağı ve ve altındaki elemanlarına uygulayacağı bir styling */}
             {/* <Text style={styles.taskText}>{task.text}</Text> */}
             <CheckBox
               value={task.isSelected}
@@ -148,7 +150,7 @@ const styles = StyleSheet.create({
     padding: 5
   },
   strikeThroughText: {
-    // SORU: flexDirection değerini row veya column yapmam bir şeyi değiştirmedi - ELCEVAP: Baba çocuğuna hükmeder.
+    // SORU: flexDirection değerini row veya column yapmam bir şeyi değiştirmedi - YANIT: Baba çocuğuna hükmeder.
     flex: 8,
     fontSize: 16,
     justifyContent: 'space-around',
@@ -169,7 +171,7 @@ const styles = StyleSheet.create({
   taskText: {
     flex: 8,
     /*
-    SORU: bu değer 120 iken checkbox işaretlenmiyordu neden? - ELCEVAP: Çünkü o elemanın minwidth değeri ile alakalı, definition dosyasına bakabilirsin minwidth için, 
+    SORU: bu değer 120 iken checkbox işaretlenmiyordu neden? - YANIT: Çünkü o elemanın minwidth değeri ile alakalı, definition dosyasına bakabilirsin minwidth için, 
     flexin etkili olup olmadığını anlamak için border verip kontrol edebilirsin
     */
     fontSize: 16,
