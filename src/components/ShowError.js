@@ -9,19 +9,7 @@ import { countAt, countDot, nameLength, nameSpace, passwordLength } from '../tex
 const PositiveTick = () => <Icon name="check" type="evilicons" size={24} color="green" />;
 const NegativeCross = () => <Icon name="close-o" type="evilicons" size={24} color="red" />;
 
-export const nameValidate = (name) => {
-  // isim 5 karakterden buyuk ve bosluksuz olmali
-  if (nameLength(name) && nameSpace(name)) return false;
-  return "Your name should be 5 or more characters and doesn't include space(' ')";
-};
-
-export const passwordValidate = (password) => {
-  // sifre en az 6 karakter olmali
-  if (passwordLength(password)) return false;
-  return 'Your password should be at least 6 characters!';
-};
-
-const ShowError = (type, name, email, password) => {
+const ShowError = ({ type, name, email, password }) => {
   switch (type) {
     case 'name':
       return (
