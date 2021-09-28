@@ -6,11 +6,8 @@ import { countAt, countDot, nameLength, nameSpace, passwordLength } from '../tex
 // her ikisi de true olurse en son return null olmalı
 // . işareti için de aynı şeyler. tek metin olmalı ve metin her şekilde gözükmeli tek farkla hata varsa x yoksa tik işaretiyle. belki de bunun için error component oluşturabilirim
 
-export const emailValidate = (email) => {
-  // '@' isareti ve 2 adet nokta icermeli
-  if (countAt(email) && countDot(email)) return false;
-  return "Your email should include one '@' sign and two dots('.')!";
-};
+const PositiveTick = () => <Icon name="check" type="evilicons" size={24} color="green" />;
+const NegativeCross = () => <Icon name="close-o" type="evilicons" size={24} color="red" />;
 
 export const nameValidate = (name) => {
   // isim 5 karakterden buyuk ve bosluksuz olmali
@@ -29,45 +26,26 @@ const ShowError = (type, name, email, password) => {
     case 'name':
       return (
         <View>
-          {nameLength(name) ? (
-            <Icon name="check" type="evilicons" size={24} color="green" />
-          ) : (
-            <Icon name="close-o" type="evilicons" size={24} color="red" />
-          )}
+          {/* console.log(nameLength(name)); */}
+          {nameLength(name) ? <PositiveTick /> : <NegativeCross />}
           <Text>greater than 5</Text>
-          {nameSpace(name) ? (
-            <Icon name="check" type="evilicons" size={24} color="green" />
-          ) : (
-            <Icon name="close-o" type="evilicons" size={24} color="red" />
-          )}
+          {nameSpace(name) ? <PositiveTick /> : <NegativeCross />}
           <Text>Not include space</Text>
         </View>
       );
     case 'email':
       return (
         <View>
-          {countAt(email) ? (
-            <Icon name="check" type="evilicons" size={24} color="green" />
-          ) : (
-            <Icon name="close-o" type="evilicons" size={24} color="red" />
-          )}
+          {countAt(email) ? <PositiveTick /> : <NegativeCross />}
           <Text>Includes @</Text>
-          {countDot(email) ? (
-            <Icon name="check" type="evilicons" size={24} color="green" />
-          ) : (
-            <Icon name="close-o" type="evilicons" size={24} color="red" />
-          )}
+          {countDot(email) ? <PositiveTick /> : <NegativeCross />}
           <Text>Includes 2 .</Text>
         </View>
       );
     case 'password':
       return (
         <View>
-          {passwordLength(password) ? (
-            <Icon name="check" type="evilicons" size={24} color="green" />
-          ) : (
-            <Icon name="close-o" type="evilicons" size={24} color="red" />
-          )}
+          {passwordLength(password) ? <PositiveTick /> : <NegativeCross />}
           <Text>greater than 6</Text>
         </View>
       );
@@ -75,8 +53,5 @@ const ShowError = (type, name, email, password) => {
       return null;
   }
 };
-
-// const styles = StyleSheet.create({
-// });
 
 export default ShowError;
