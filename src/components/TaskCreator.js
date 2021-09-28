@@ -27,7 +27,8 @@ export default () => {
     retrieveText();
   }, []);
 
-  // @?? SORU: Burada birden çok fonksiyon var bunları textValidator gibi ayrı bir fonksiyon kümesi olarak ayrıştırmak gerekir mi?
+  // SORU: Burada birden çok fonksiyon var bunları textValidator gibi ayrı bir fonksiyon kümesi olarak ayrıştırmak gerekir mi?
+  // YANIT: state'lerle alakalı fonksiyonları dışarı çıkarırken düşünmek laızm gerçekten çıkarmamız gerekir mi diye
   const addTask = () => {
     if (!text) return;
     setTaskItems([...taskItems, { id: Date.now().toString(), isSelected: false, text }]);
@@ -57,8 +58,8 @@ export default () => {
   };
 
   const taskCompletion = (id) => {
-    const index = findElement(id, taskItems);
-    // SORU: checkbox işaretlenince aşağı iniyor veya geri tik kaldırılınca yine aşağı iniyor. - ÇÖZÜM: "javascript change object in array"
+    const index = taskItems.findIndex((task) => task.id === id);
+    if (index === -1) return;
     if (taskItems[index].isSelected) taskItems[index].isSelected = false;
     else taskItems[index].isSelected = true;
     setTaskItems([...taskItems]); // @?? SORU: setTaskItems(taskItems) yazınca tik atılmıyor ve üzerini çizilmiyordu
