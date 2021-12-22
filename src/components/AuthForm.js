@@ -3,8 +3,9 @@ import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Text, Button, Icon, Input } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import { emailValidate, nameValidate, passwordValidate } from '../textValidator';
+import ShowError from './ShowError';
 import Spacer from './Spacer';
+import { emailValidate, nameValidate, passwordValidate } from '../textValidator';
 
 const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
   const navigation = useNavigation();
@@ -54,7 +55,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
               autoCapitalize="none"
               autoCorrect={false}
             />
-            {!!nameError && <Text style={styles.errorMessage}>{nameError}</Text>}
+            {!!nameError && <ShowError type="name" value={name} />}
           </View>
         )}
         <Spacer />
@@ -67,7 +68,7 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        {!!emailError && <Text style={styles.errorMessage}>{emailError}</Text>}
+        {!!emailError && <ShowError type="email" value={email} />}
         <Spacer />
         <Input
           secureTextEntry // bu sifrenin gozukmemesini sagliyor
@@ -78,9 +79,10 @@ const AuthForm = ({ headerText, isRegister = false, submitButtonText }) => {
           leftIcon={<Icon name="lock" type="materialicon" size={24} color="gray" />}
           autoCapitalize="none"
           autoCorrect={false}
+          formType="password"
         />
         {/* onSubmitEditing={() => navigation.navigate(buttonRouteName)} @?? bunu burada yapabilir miyiz? */}
-        {!!passwordError && <Text style={styles.errorMessage}>{passwordError}</Text>}
+        {!!passwordError && <ShowError type="password" value={password} />}
         {!(nameError || emailError || passwordError) && (
           <Button title={submitButtonText} onPress={onSubmit} />
         )}
